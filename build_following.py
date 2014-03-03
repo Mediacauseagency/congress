@@ -33,10 +33,8 @@ for congressPersonFact in congressPeople ['objects']:
 #Making a loop of the congressFriends and creating a friendship via the Tweepy wrapper	
 me='mytwitterid'
 for congressFriend in congressFriends:
-	if API.exists_friendship(me,congressFriend)==False: 
-		try:
-			api.create_friendship(congressFriend)
-		except:
-			pass
+	api.create_friendship(congressFriend)
+	except:
+		pass
 
 
