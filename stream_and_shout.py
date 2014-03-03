@@ -6,8 +6,8 @@ from tweepy import Stream
 from tweepy.streaming import StreamListener
 
 #opens the dicktionary.txt and sets it to a list
-dicktionary=[]
-dicktionary = [line.strip() for line in open("./yourlist.txt", 'r')]
+alerts=[]
+alerts = [line.strip() for line in open("./yourlist.txt", 'r')]
 
 
 # Consumer keys and access tokens, used for OAuth
@@ -33,7 +33,7 @@ class listener(StreamListener):
 		tweet=json.loads(data)
 		if tweet.has_key("text") and tweet.has_key("id"):
 			if tweet["user"]['screen_name'] != "yourtwitterhandle":
-				for phrase in dicktionary:
+				for phrase in alerts:
 					if tweet["text"].lower().find(phrase) >=0:
 						print tweet
 						api.retweet(tweet["id"])
