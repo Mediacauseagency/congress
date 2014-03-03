@@ -33,20 +33,14 @@ class listener(StreamListener):
 		tweet=json.loads(data)
 		if tweet.has_key("text") and tweet.has_key("id"):
 			for phrase in dicktionary:
-				if tweet["text"].find(phrase) >=0:
+				if tweet["text"].lower().find(phrase) >=0:
 					print tweet["text"]
 					api.retweet(tweet["id"])
-			#if tweet.has_key('id') and tweet.has_key("text"):
-				#print("%s: %s" % (tweet['user']['screen_name'], tweet['text']))
-		
-		#print badTweet
-		#for phrase in dicktionary:
-		#	if tweet['text'].find(phrase) >= 0 :
-		#		print tweet
-		
-		#print tweets
-	#def on_error(self, status):
-		#print status
+					return True
+	
+	
+	def on_error(self, status):
+		return True
 
 twitterStream = Stream(auth, listener()) 
 twitterStream.userstream("with=followings")
