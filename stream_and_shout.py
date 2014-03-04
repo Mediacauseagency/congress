@@ -29,7 +29,7 @@ class listener(StreamListener):
 	def on_data(self, data):		
 		tweet=json.loads(data)
 		if tweet.has_key("text") and tweet.has_key("id"):
-			if tweet["user"]['screen_name'] != "yourtwitterhandle":
+			if tweet["user"]['screen_name'] != "yourtwitterhandle" and ["entities"]["user_mentions"] != "yourtwiterhandle":
 				for phrase in alerts:
 					if all(re.search(r"\b" + re.escape(phrase) + r"\b", tweet.lower()) for phrase in alerts)=True:
 						print tweet
