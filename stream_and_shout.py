@@ -25,10 +25,6 @@ api = tweepy.API(auth)
 
 class listener(StreamListener):
 
-	#def on_data(self, data):		
-		#print data
-		#return True
-
 	def on_data(self, data):		
 		tweet=json.loads(data)
 		if tweet.has_key("text") and tweet.has_key("id"):
