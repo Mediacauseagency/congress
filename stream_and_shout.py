@@ -2,6 +2,7 @@
 import sys  
 import tweepy 
 import json
+import re
 from tweepy import Stream 
 from tweepy.streaming import StreamListener
 
@@ -30,7 +31,7 @@ class listener(StreamListener):
 		if tweet.has_key("text") and tweet.has_key("id"):
 			if tweet["user"]['screen_name'] != "yourtwitterhandle":
 				for phrase in alerts:
-					if tweet["text"].lower().find(phrase) >=0:
+					all(re.search(r"\b" + re.escape(phrase) + r"\b", tweet.lower()) for phrase in alerts):
 						print tweet
 						api.retweet(tweet["id"])
 						return True
