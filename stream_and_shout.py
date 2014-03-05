@@ -26,15 +26,15 @@ api = tweepy.API(auth)
 
 class listener(StreamListener):
 
-	def on_data(self, data):		
-		tweet=json.loads(data)
+	#Check tweet text against the dictionary and retweet if a match is made (while preventing crash for self retweets)		
 		if tweet.has_key("text") and tweet.has_key("id"):
-			if tweet["user"]['screen_name'] != "yourtwitterhandle" and ["entities"]["user_mentions"] != "yourtwiterhandle":
-				for phrase in alerts:
-					if all(re.search(r"\b" + re.escape(phrase) + r"\b", tweet.lower()) for phrase in alerts)=True:
-						print tweet
-						api.retweet(tweet["id"])
-						return True
+			if tweet["user"]["screen_name"] in congressFriends: 
+				for phrase in dicktionary:
+						pattern = re.compile(r'\b' +phrase+ r'\b')
+						if re.search(pattern, tweet["text"].lower()):
+							print tweet
+							api.retweet(tweet["id"])
+							return True
 	
 	
 	def on_error(self, status):
