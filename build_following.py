@@ -31,7 +31,7 @@ for congressPersonFact in congressPeople ['objects']:
 			congressFriends.append(congressTwit)
 
 #Making a loop of the congressFriends and creating a friendship via the Tweepy wrapper	
-me='mytwitterid'
+
 for congressFriend in congressFriends:
 	api.create_friendship(congressFriend)
 	except:
